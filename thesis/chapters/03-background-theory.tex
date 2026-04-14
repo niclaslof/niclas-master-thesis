@@ -1,0 +1,210 @@
+\chapter{Background and Theory}
+\label{ch:background}
+
+\section{Signal Processing}
+\label{sec:signal-processing}
+
+This section provides the theoretical background necessary for understanding the scattering transform. We begin with the foundational Fourier Transform, discuss its limitations, and introduce subsequent developments that address these limitations, culminating in the scattering transform.
+
+\subsection{Introduction to Signal Processing}
+
+Signal processing is a field of study that focuses on the analysis, manipulation, and interpretation of signals. Signals, in this context, refer to time-varying quantities that carry information, such as audio recordings, images, or sensor data. The primary goal of signal processing is to extract meaningful information from these signals or to transform them in a useful way.
+
+One of the fundamental tools in signal processing is the Fourier Transform. It allows us to decompose a signal into its constituent frequencies, providing a different perspective on the signal. This frequency perspective is often more insightful and actionable than the raw time-domain signal, especially for analyzing the harmonic content of sounds or finding patterns in data.
+
+\subsection{The Fourier Transform}
+
+The Fourier Transform, named after Jean-Baptiste Joseph Fourier, is a mathematical tool that decomposes a function into its constituent frequencies, also known as its frequency spectrum. It is a fundamental tool in signal processing and allows us to analyze and manipulate signals in the frequency domain. Mathematically, the Fourier Transform of a continuous and integrable function $f(t)$ is defined as:
+
+\begin{equation}
+  \mathcal{F}\{f(t)\} = F(\omega) = \int_{-\infty}^{\infty} f(t) e^{-j\omega t} \, dt
+  \label{eq:fourier}
+\end{equation}
+
+However, the Fourier Transform has a significant limitation: it does not capture the time-localized characteristics of a signal. This is because the Fourier Transform provides a global representation of the signal, analyzing the entire signal as a whole, rather than considering its local (time-specific) characteristics. In the Fourier Transform, the integral is taken over all time, from $-\infty$ to $\infty$, and there is no time variable in $F(\omega)$. This means that while $F(\omega)$ tells us the amplitude of the frequency components $\omega$ in the signal, it does not tell us when these frequency components occur in the signal.
+
+\subsection{The Wavelet Transform}
+
+The Wavelet Transform addresses the limitations of the Fourier Transform by providing both time and frequency information about a signal. Instead of using infinite sinusoidal waves, it uses wavelets---short, localized wave-like functions. The continuous wavelet transform of a signal $f(t)$ is defined as:
+
+\begin{equation}
+  W_f(a,b) = \frac{1}{\sqrt{|a|}} \int_{-\infty}^{\infty} f(t) \psi^*\!\left(\frac{t-b}{a}\right) dt
+  \label{eq:wavelet}
+\end{equation}
+
+where:
+\begin{itemize}
+  \item $a$ is the scale parameter
+  \item $b$ is the translation parameter
+  \item $\psi^*$ denotes the complex conjugate of $\psi$
+\end{itemize}
+
+This wavelet transform is designed to cover the whole frequency axis, ensuring that it is a stable and invertible operator. Unlike the Fourier Transform, which provides a global representation of the entire signal, the wavelet transform retains the time information, making it possible to analyze signals at different resolutions or scales.
+
+This is particularly beneficial when the signal has abrupt changes or non-stationary features, which are common in real-world signals. The wavelet transform, therefore, offers a powerful tool for signal analysis, allowing us to understand both the frequency content and the time localization of features within a signal.
+
+\subsection{Scattering Transform: Hierarchical Wavelet Analysis}
+
+Building upon the Wavelet Transform, we introduce the Scattering Transform---a hierarchical extension that further refines our ability to analyze and represent signals. This transform inherits the time-frequency localization of wavelets and adds invariant and stable representations, making it particularly powerful for complex signal analysis.
+
+Key properties of the Scattering Transform include:
+\begin{itemize}
+  \item \textbf{Translation Invariance:} It provides stable representations that are largely invariant to translations in the input signal.
+  \item \textbf{Stability to Deformations:} The transform is stable under time-warping deformations, making it robust to small distortions in the signal.
+  \item \textbf{Preservation of High Frequencies:} Unlike traditional wavelet transforms, scattering retains high-frequency information, which is crucial for signal discrimination.
+\end{itemize}
+
+\subsubsection{Advantages Over Simple Wavelet Transforms}
+
+While wavelet transforms excel in providing time-frequency representations of signals, the Scattering Transform further excels by offering:
+\begin{itemize}
+  \item A multi-layered, deep architecture that captures complex and hierarchical patterns in data.
+  \item Invariance to common signal transformations, which is essential for robust signal classification and analysis.
+\end{itemize}
+
+This hierarchical and invariant nature of the Scattering Transform makes it a powerful tool, especially in contexts where the data exhibits complex and multifaceted structures, such as in music and audio signal analysis.
+
+\subsection{Deep Scattering Spectrum: A Practical Application}
+
+Having established the theoretical foundation of the Scattering Transform, we now consider its practical application---the Deep Scattering Spectrum (DSS). The DSS represents the scattering coefficients in a format suitable for downstream machine learning tasks:
+
+\begin{equation}
+  \text{DSS}(x) = \{S_x(j_1, j_2, \ldots, j_m)\}
+  \label{eq:dss}
+\end{equation}
+
+where $S_x(j_1, j_2, \ldots, j_m)$ are the scattering coefficients of the signal $x$.
+
+\subsubsection{Applications in Music and Audio Analysis}
+
+The Deep Scattering Spectrum has found substantial applications in various music and audio analysis tasks, including:
+\begin{itemize}
+  \item \textbf{Genre Classification:} The DSS can be used to create highly discriminative features for classifying music into different genres.
+  \item \textbf{Speech Recognition:} The DSS provides a robust representation of speech signals, making it useful for automatic speech recognition systems.
+  \item \textbf{Sound Source Separation:} The DSS can be employed to separate different sources in a complex audio scene.
+\end{itemize}
+
+\subsection{Summary}
+
+To conclude this section, we have journeyed from the foundational Fourier Transform, which serves as a cornerstone in signal processing, to the Wavelet Transform, which addresses the Fourier Transform's limitations by providing time-frequency localization. We have then explored the Scattering Transform, a hierarchical and invariant extension of the Wavelet Transform, and its practical application, the Deep Scattering Spectrum.
+
+
+% ============================================================
+\section{Feature Selection}
+\label{sec:feature-selection}
+
+Feature selection is an essential step in music instrument recognition to improve model performance, reduce computational complexity, and enhance interpretability, i.e., the extent to which cause and effect can be observed within a given system.
+
+\subsection{Filter Methods}
+
+Filter methods are a category of feature selection techniques that assess the relevance of features based on their individual characteristics, independent of any specific machine learning algorithm.
+
+\paragraph{Correlation-based Feature Selection (CFS)} evaluates the predictive ability of each feature individually, as well as the degree of redundancy among them.
+
+\paragraph{Chi-Square Test} measures the dependence between categorical features and a categorical target variable. It calculates the chi-square statistic, which compares the observed frequencies of feature-target associations with the expected frequencies under the assumption of independence.
+
+\paragraph{Information Gain} quantifies the amount of information gained about the target variable when a specific feature is known.
+
+\paragraph{ANOVA (Analysis of Variance)} measures the statistical difference between the means of two or more groups.
+
+\paragraph{Mutual Information} is a measure of the dependency between two variables. The mutual information between two variables $X$ and $Y$ can be defined as:
+\begin{equation}
+  I(X; Y) = \sum_{y \in \mathcal{Y}} \sum_{x \in \mathcal{X}} p(x,y) \log \frac{p(x,y)}{p(x)p(y)}
+  \label{eq:mutual-info}
+\end{equation}
+
+\paragraph{K-Best Feature Selection} selects the top $K$ features based on a chosen statistical measure.
+
+\subsection{Wrapper Methods}
+
+Wrapper methods utilize a machine learning algorithm to evaluate the importance of features. The evaluation involves evaluating a given algorithm on a subset of features and subsequently selecting the subset that provides the best performance.
+
+\paragraph{Forward Selection} starts with no features and adds one feature at a time.
+\paragraph{Backward Selection} starts with all features and removes one at a time.
+\paragraph{Stepwise Selection} combines forward and backward selection.
+\paragraph{Sequential Forward Selection (SFS)} is a type of forward selection with a stopping criterion based on model performance.
+\paragraph{Recursive Feature Elimination (RFE)} uses a machine learning model to rank features by importance, removes the least important features, and re-fits the model.
+
+\subsection{Embedded Methods}
+
+Embedded methods integrate the feature selection process into the model training process.
+
+\paragraph{L1 Regularization (Lasso)} adds a penalty term to the loss function that is proportional to the absolute value of the model weights.
+\paragraph{Tree-based Feature Selection} uses decision trees, random forests, or gradient boosting machines to provide feature importance based on how frequently a feature is used for splitting.
+
+
+% ============================================================
+\section{Feature Representations}
+\label{sec:feature-representations}
+
+\subsection{Introduction}
+
+Feature representations transform raw, complex data into a more manageable and interpretable format for machine learning algorithms. They act as a bridge between the raw data and the algorithm, translating intricate data patterns into a form that is more digestible for computers.
+
+\subsection{Designed vs.\ Learned Representations}
+
+Designed features are crafted based on domain knowledge and understanding of the data. The Scattering Transform is an example of a designed feature representation. Learned features, on the other hand, are automatically extracted from data by machine learning models during training. MusicNN is an example of a learned feature representation.
+
+\subsection{Scattering Transform as Feature Representation}
+
+The Scattering Transform provides a designed feature representation that captures hierarchical, translation-invariant information from audio signals.
+
+\subsection{MusicNN}
+
+MusicNN is a deep learning model that learns to extract meaningful features from raw audio data. As a learned feature representation, MusicNN is trained on a large dataset to understand and capture the relevant patterns in the data, which are then used as features for further analysis~\cite{pons2019musicnn}.
+
+% TODO: Expand this section with more detail on MusicNN architecture.
+
+
+% ============================================================
+\section{Machine Learning Methods}
+\label{sec:ml-methods}
+
+\subsection{Introduction}
+
+Machine learning methods are a cornerstone in the field of music information retrieval, enabling computers to learn from data and make predictions or decisions without being explicitly programmed to perform the task.
+
+\subsection{Support Vector Machines (SVM)}
+
+Support Vector Machines (SVMs) are a class of supervised learning algorithms used for classification tasks. The fundamental idea behind SVMs is to construct a hyperplane in a high-dimensional feature space that distinctly separates the data points into two classes.
+
+\begin{enumerate}
+  \item \textbf{Hyperplane:} In an $n$-dimensional space, a hyperplane is a flat affine subspace of dimension $n-1$. The hyperplane is defined as the set of points $\mathbf{x}$ such that $\mathbf{w} \cdot \mathbf{x} + b = 0$.
+  \item \textbf{Margin:} The margin is defined as the distance between the closest points (support vectors) of the two classes to the hyperplane: $\frac{2}{\|\mathbf{w}\|}$.
+  \item \textbf{Support Vectors:} The data points that lie closest to the hyperplane.
+  \item \textbf{Kernel Trick:} Maps data into higher-dimensional spaces where a linear separator exists.
+\end{enumerate}
+
+\subsection{k-Nearest Neighbors (KNN)}
+
+The k-Nearest Neighbors (KNN) algorithm is a simple, instance-based learning method used for classification and regression. It classifies a data point based on how its neighbors are classified.
+
+\begin{enumerate}
+  \item \textbf{Choosing $k$:} Select the number of neighbors.
+  \item \textbf{Distance Metric:} Common choices include Euclidean, Manhattan, and Minkowski distance.
+  \item \textbf{Finding Neighbors:} Calculate distances and select $k$ nearest.
+  \item \textbf{Majority Voting:} Classify based on the most common class among neighbors.
+\end{enumerate}
+
+\subsection{Random Forest}
+
+Random Forest builds multiple decision trees and merges them together to get a more accurate and stable prediction.
+
+\subsection{Summary}
+
+This section introduced three widely used machine learning methods. SVMs are powerful for high-dimensional data but can be computationally intensive. KNN is simple and effective but may struggle with large datasets. Random Forests are highly accurate and can handle large, complex datasets.
+
+
+% ============================================================
+\section{Dimensionality Reduction Techniques}
+\label{sec:dim-reduction}
+
+\subsection{Principal Component Analysis (PCA)}
+
+PCA is a statistical procedure that orthogonally transforms the original features into a new set of uncorrelated variables called principal components. Each succeeding component explains a decreasing amount of variance. Mathematically, PCA seeks to find the eigenvalues and eigenvectors of the data's covariance matrix.
+
+\subsection{Other Dimensionality Reduction Techniques}
+
+\paragraph{t-SNE} is a probabilistic technique that aims to preserve small pairwise distances in a low-dimensional embedding. It is particularly effective for visualization.
+
+\paragraph{LDA (Linear Discriminant Analysis)} is a supervised method that seeks to find the linear combinations of features that best separate two or more classes.

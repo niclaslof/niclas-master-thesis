@@ -1,0 +1,34 @@
+# Dependencies
+site/node_modules/
+
+# Next.js
+site/.next/
+site/out/
+
+# LaTeX build artifacts
+thesis/*.aux
+thesis/*.bbl
+thesis/*.bcf
+thesis/*.blg
+thesis/*.fdb_latexmk
+thesis/*.fls
+thesis/*.log
+thesis/*.out
+thesis/*.synctex.gz
+thesis/*.toc
+thesis/*.lof
+thesis/*.lot
+thesis/*.run.xml
+thesis/chapters/*.aux
+thesis/main.pdf
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+
+# Vercel
+.vercel

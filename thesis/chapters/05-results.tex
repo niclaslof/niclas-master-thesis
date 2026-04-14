@@ -1,0 +1,53 @@
+\chapter{Results and Analysis}
+\label{ch:results}
+
+% TODO: Re-add confusion matrix figures when figure files are available.
+% The original thesis had figures 6.1--6.11 showing KNN and SVM performance
+% on various feature combinations and datasets.
+
+\section{Classification Results}
+
+% NOTE: Figures need to be regenerated or imported from the original project.
+% Original figures included:
+% - KNN Performance on PF\_MSD\_ESSID Dataset
+% - KNN/SVM Performance on MSD\_ESSID Dataset
+% - KNN/SVM Performance on sx\_mean features
+% - KNN/SVM Performance on combined features (sxmean + mtt)
+% - SVM on MSD (YouTube) for 200 dim space
+% - SVM on MSD (YouTube) projected onto PCA
+% - SVM on combined (YouTube) for 573 dim space
+% - SVM on combined (YouTube) projected onto 200 PCs
+
+Based on the confusion matrices, a concatenation of the Scattering Transform features and MTT features yields improved recognition results. However, the dimensions of the different feature spaces must be taken into account: $S_x$ provides 373 features, MTT provides 200 features, and their combined representation spans 573 features per sample. It is therefore necessary to control for dimensionality to determine whether the improvement stems from complementary information or simply from a higher-dimensional space.
+
+
+\section{Dimensionality Reduction Using Principal Component Analysis}
+\label{sec:pca-analysis}
+
+To compare the performance of different feature extraction methods in a fair manner, we employ Principal Component Analysis (PCA) to reduce the dimensionality of the feature spaces to a common lower-dimensional subspace.
+
+\begin{enumerate}
+  \item \textbf{Standardization of Features:}
+  \begin{equation}
+    X_{\text{standardized}} = \frac{X - \mu}{\sigma}
+    \label{eq:standardize}
+  \end{equation}
+
+  \item \textbf{Computing the Principal Components:} We fit the PCA model to the standardized features of the training data from the ESSID dataset.
+
+  \item \textbf{Selecting the Number of Components:} For a fair comparison, we project all feature types onto the same number of components.
+
+  \item \textbf{Transforming the Features:}
+  \begin{equation}
+    X_{\text{reduced}} = (X - \mu) \cdot W
+    \label{eq:pca-transform}
+  \end{equation}
+
+  \item \textbf{Applying the Same Transformation to New Data:} For our YouTube excerpts dataset, we apply the same PCA transformation that was fit on the ESSID training data:
+  \begin{equation}
+    X_{\text{new, reduced}} = (X_{\text{new}} - \mu) \cdot W
+    \label{eq:pca-new}
+  \end{equation}
+\end{enumerate}
+
+This process ensures that the comparisons between different feature extraction methods are conducted in a common lower-dimensional space, thereby enabling a fair evaluation of their performance.

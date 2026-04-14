@@ -1,0 +1,97 @@
+\chapter{Method}
+\label{ch:method}
+
+\section{Data Transformation Pipeline}
+
+\subsection{Overview}
+
+In our experiments, we transform the raw audio samples from the ESSID dataset into feature representations that are conducive for various downstream tasks, such as classification or similarity analysis. We employ three different transformation techniques: the Scattering Transform, MusicNN with Million Song Dataset (MSD) weights, and MusicNN with MagnaTagATune (MTT) weights.
+
+\subsection{Scattering Transform}
+
+\paragraph{Computation of Scattering Coefficients.}
+For each audio sample in the ESSID dataset, we compute the scattering coefficients. These coefficients are high-dimensional tensors that encapsulate the hierarchical structure of the audio signal, capturing intricate details at various scales and orders.
+
+\paragraph{Logarithmic Scaling.}
+To stabilize the variance and make the coefficients more amenable to statistical analysis, we apply logarithmic scaling:
+\begin{equation}
+  S_x^{\text{scaled}} = \log(|S_x| + \epsilon)
+  \label{eq:log-scaling}
+\end{equation}
+
+\paragraph{Temporal Averaging.}
+We take the mean over the time dimension of the scaled coefficients:
+\begin{equation}
+  S_x^{\text{mean}} = \text{mean}(S_x^{\text{scaled}}, \text{axis}=-1)
+  \label{eq:temporal-avg}
+\end{equation}
+
+Temporal averaging is used to create a summary statistic that captures the average behavior of each scattering coefficient over time for each audio sample.
+
+\paragraph{Resulting Dimensionality.}
+After these preprocessing steps, for each audio sample in the ESSID dataset, we obtain a feature vector of dimension 373.
+
+\subsection{MusicNN Transforms}
+
+For the MusicNN MSD and MTT models, we transform the raw audio samples from the ESSID dataset into feature representations by extracting the activations from the penultimate layer of the pretrained convolutional neural networks.
+
+
+\section{Datasets}
+
+\subsection{ESSID Dataset}
+
+The ESSID dataset, utilized in the study, is a collection of single instrument recordings. This dataset was designed with the aim of capturing a maximum number of different recording conditions, performers, and types of music for each instrument. The extracts were obtained from digital recordings of classical music, jazz, or sound carriers used for teaching music, as well as studio recordings.
+
+The ESSID dataset was proposed by Slim Essid in his PhD thesis titled ``Classification automatique des signaux audio-fr\'{e}quences: reconnaissance des instruments de musique'' in 2005~\cite{essid2005classification}.
+
+\begin{table}[H]
+  \centering
+  \caption{Overview of the ESSID dataset}
+  \label{tab:essid}
+  \begin{tabular}{llccc}
+    \toprule
+    Instrument & Code & Sources & Samples/source & Total samples \\
+    \midrule
+    Guitar     & Gt   & 5       & 74              & 370           \\
+    Piano      & Pn   & 5       & 77              & 385           \\
+    Cello      & Co   & 5       & 116             & 580           \\
+    Clarinet   & Cl   & 5       & 56              & 280           \\
+    Oboe       & Ob   & 5       & 90              & 450           \\
+    Trumpet    & Tr   & 5       & 49              & 245           \\
+    Violin     & Vl   & 5       & 89              & 445           \\
+    \midrule
+    \textbf{Total} & & & & \textbf{2,755} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{YouTube Excerpts Dataset}
+
+\begin{table}[H]
+  \centering
+  \caption{Overview of the YouTube Excerpts Dataset}
+  \label{tab:youtube}
+  \begin{tabular}{lc}
+    \toprule
+    Instrument & Total Samples \\
+    \midrule
+    Guitar     & 10            \\
+    Piano      & 10            \\
+    Cello      & 10            \\
+    Clarinet   & 10            \\
+    Oboe       & 10            \\
+    Trumpet    & 10            \\
+    Violin     & 10            \\
+    \midrule
+    \textbf{Total} & \textbf{70} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Model Training and Evaluation}
+
+% TODO: Describe training/evaluation methodology (cross-validation, metrics, etc.)
+
+\section{Experiments}
+
+% TODO: Describe specific experiments run

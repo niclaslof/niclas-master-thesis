@@ -1,0 +1,131 @@
+\documentclass[12pt,a4paper]{report}
+
+% ============================================================
+% Packages
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english,swedish]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{natbib}
+\usepackage{bytefield}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{appendix}
+
+% ============================================================
+% Page geometry
+% ============================================================
+\geometry{
+  top=30mm,
+  bottom=30mm,
+  left=30mm,
+  right=25mm
+}
+
+% ============================================================
+% Header / Footer
+% ============================================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ============================================================
+% Custom commands (add your own here)
+% ============================================================
+\newcommand{\colorbitbox}[3]{%
+  \rlap{\bitbox{#2}{\color{#1}\rule{\width}{\height}}}%
+  \bitbox{#2}{#3}}
+
+\newenvironment{swedishnotes}%
+  {\begin{center}
+      \selectlanguage{swedish}
+      \color{blue}}%
+  {\end{center}\selectlanguage{english}}
+
+% ============================================================
+% Hyperref setup
+% ============================================================
+\hypersetup{
+  colorlinks=true,
+  linkcolor=MidnightBlue,
+  citecolor=OliveGreen,
+  urlcolor=BrickRed,
+  pdftitle={Comparative Analysis of Learned and Designed Features},
+  pdfauthor={Niclas L\"{o}fvenmark},
+}
+
+% ============================================================
+% Title info
+% ============================================================
+\title{
+  \textbf{Comparative Analysis of Learned and Designed Features:}\\[0.5em]
+  \Large A Deep Dive into MusicNN and Scattering Transform\\
+  for Music Instrument Recognition
+}
+\author{Niclas L\"{o}fvenmark}
+\date{2026}
+
+% ============================================================
+\begin{document}
+
+% --- Title page ---
+\input{chapters/00-titlepage}
+
+% --- Copyright ---
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{center}
+  \textcopyright{} 2026 Niclas L\"{o}fvenmark
+\end{center}
+\vspace*{\fill}
+\clearpage
+
+% --- Abstract ---
+\input{chapters/00-abstract}
+
+% --- Sammanfattning ---
+\input{chapters/00-sammanfattning}
+
+% --- Acknowledgments ---
+\input{chapters/00-acknowledgments}
+
+% --- Table of contents ---
+\tableofcontents
+\clearpage
+
+% --- Chapters ---
+\input{chapters/01-introduction}
+\input{chapters/02-literature-survey}
+\input{chapters/03-background-theory}
+\input{chapters/04-method}
+\input{chapters/05-results}
+\input{chapters/06-discussion}
+\input{chapters/07-conclusions}
+
+% --- Bibliography ---
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+% --- Appendix ---
+\begin{appendices}
+\input{chapters/08-appendix}
+\end{appendices}
+
+\end{document}
