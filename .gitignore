@@ -26,9 +26,17 @@ thesis/main.pdf
 .DS_Store
 Thumbs.db
 
+# Scratch renderings (Bob's AIMS talk slides rendered as PNGs)
+.aims_slides/
+
+# Bob's AIMS 2026 presentation PDF (keep local, don't commit)
+thesis/Aims2026presentation.pdf
+
 # Environment
 .env
 .env.local
 
 # Vercel
+.vercel
+
 .vercel

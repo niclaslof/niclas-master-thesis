@@ -1,35 +1,128 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================
+ * LIGHT THEME (default)
+ * Warm stone base, KTH navy accent
+ * ============================================ */
 :root {
-  --background: #0f172a;
-  --foreground: #e2e8f0;
-  --accent: #38bdf8;
-  --accent-dim: #0ea5e9;
-  --card: #1e293b;
-  --card-border: #334155;
-  --muted: #94a3b8;
+  --background: #f4f1ec;
+  --foreground: #1c1917;
+  --muted: #78716c;
+  --border: #e7e5e4;
+  --card: #ffffff;
+  --card-border: #e7e5e4;
+  --accent: #1c1917;
+
+  /* KTH navy — used sparingly for emphasis */
+  --kth-navy: #183458;
+  --kth-navy-light: #2b4a7a;
+
+  /* Status semantics */
+  --success: #166534;
+  --warning: #92400e;
+  --danger:  #991b1b;
+  --planned: #4b5563;
+}
+
+.dark {
+  --background: #0f0f0e;
+  --foreground: #f5f5f4;
+  --muted: #a8a29e;
+  --border: #292524;
+  --card: #1a1918;
+  --card-border: #292524;
+  --accent: #f5f5f4;
+
+  --kth-navy: #6e8ebd;
+  --kth-navy-light: #a4bce0;
+
   --success: #22c55e;
   --warning: #f59e0b;
-  --danger: #ef4444;
+  --danger:  #ef4444;
+  --planned: #9ca3af;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-accent-dim: var(--accent-dim);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
   --color-card: var(--card);
   --color-card-border: var(--card-border);
-  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-kth-navy: var(--kth-navy);
+  --color-kth-navy-light: var(--kth-navy-light);
   --color-success: var(--success);
   --color-warning: var(--warning);
-  --color-danger: var(--danger);
+  --color-danger:  var(--danger);
+  --color-planned: var(--planned);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: Georgia, "Source Serif 4", "Source Serif Pro", "Iowan Old Style",
+    "Apple Garamond", Baskerville, "Times New Roman", serif;
+}
+
+html {
+  color-scheme: light;
+  background: var(--background);
+}
+html.dark {
+  color-scheme: dark;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p, li, td { line-height: 1.65; }
+
+code, pre {
+  font-family: var(--font-mono), "SF Mono", "Fira Code", monospace;
+}
+
+::selection { background: rgba(24, 52, 88, 0.18); }
+.dark ::selection { background: rgba(164, 188, 224, 0.25); }
+
+/* Theme transition */
+*, *::before, *::after {
+  transition-property: color, background-color, border-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Keyboard skip-link */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0.5rem;
+  background: var(--foreground);
+  color: var(--background);
+  padding: 0.5rem 1rem;
+  z-index: 100;
+  text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: top 150ms ease;
+}
+.skip-to-content:focus {
+  top: 0.5rem;
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
 }
